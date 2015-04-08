@@ -1,0 +1,24 @@
+
+development:
+  database: blog-rails-api_development
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: develop
+  password: develop
+  host: localhost
+
+test:
+  database: blog-rails-api_test
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: test
+  password: test
+  host: localhost
+  
+production:
+  database: blog-rails-api_production
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
