@@ -4,11 +4,11 @@ module API
   class Base < Grape::API
 
     include Grape::Kaminari
-    
+
     prefix 'api'
 
     rescue_from :all, :backtrace => true
-    
+
     error_formatter :json, API::ErrorFormatter
 
     # logging features
@@ -65,24 +65,11 @@ module API
         warden.user || @user
       end
     end
-    
+
     mount API::V1::Base
 
     add_swagger_documentation api_version: 'v1',
                               hide_documentation_path: true,
                               info: { title: 'Blog Api Docs' }
-
-
-    # helpers do
-      
-    #   def current_user
-    #     @current_user ||= User.authorize!(env)
-    #   end
-
-    #   def authenticate!
-    #     error!('401 Unauthorized', 401) unless current_user
-    #   end
-    # end
-
   end
 end
