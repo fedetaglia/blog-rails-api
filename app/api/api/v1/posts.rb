@@ -1,21 +1,32 @@
 module API::V1
   class Posts < API::V1::Base
-    
+
     resource :posts do
 
       paginate per_page: 20, max_per_page: 30
 
+      # GET INDEX
       desc "Returns a list of all posts", entity: API::Entities::Post
       params do
         optional :page, type: String, desc: 'Page Number'
       end
 
-      get do 
+      get do
         present paginate(Post.all.order('created_at DESC')), with: API::Entities::Post
       end
 
-   
-    ########POST 
+      # GET SHOW
+      desc "Return a post.", entity: API::Entities::Post
+      params do
+        requires :id, type: Integer, desc: "Post id."
+      end
+      route_param :id do
+        get do
+          present Post.find(params[:id]), with: API::Entities::Post
+        end
+      end
+
+      # POST CREATE
       desc "Create a new post", entity: API::Entities::Post
       params do
         requires :access_token, type: String, desc: 'Access Token'
@@ -33,9 +44,9 @@ module API::V1
           error!(@post.errors.full_messages, 422)
         end
       end
-      
 
-      
+
+
     end
   end
 end
